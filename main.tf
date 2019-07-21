@@ -3,10 +3,11 @@ provider "aws" {
 }
 
 resource "aws_instance" "myInstanceAWS" {
-  count = "${length(var.subnets_cidr)}"
+  count = "${var.instance_count}"
   instance_type = "${var.instance_type}"
   ami = "${var.ami_id}"
   key_name = "${var.ssh_key_name}"
+  subnet_id = "${var.subnet_id}"
   tags {
     Name = "${var.instance_name}"
   }
