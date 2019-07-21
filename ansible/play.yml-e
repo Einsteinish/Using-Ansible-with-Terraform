@@ -1,0 +1,24 @@
+---
+- name: install app
+  hosts: terra_ansible_host
+  gather_facts: no
+  become: true
+
+  tasks:
+    - name: Install git.
+      package: name={{item}} state=present update_cache=true
+      with_items:
+        - git
+        - htop
+
+    - name: Install a list of packages
+      yum:
+        name:
+          - httpd
+        state: present
+
+    - name: start httpd
+      service:
+          name: httpd
+          state: started
+
