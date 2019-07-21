@@ -19,13 +19,11 @@ variable "ssh_key_name" {
 variable "ssh_key_path" {
     default = "~/.ssh/khong-aol.pem"
 }
-variable "subnets_cidr" {
-	type = "list"
-	#default = ["172.31.0.0/20", "172.31.0.0/20"]
-    default = ["172.31.0.0/20"]
-}
 variable "instance_count" {
     default = 1
+}
+variable "subnet_id" {
+    default = "subnet-e03d78ce"
 }
 variable "dev_host_label" {
     default = "terra_ansible_host"
