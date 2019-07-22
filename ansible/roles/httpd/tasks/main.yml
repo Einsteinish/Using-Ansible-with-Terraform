@@ -1,0 +1,12 @@
+---
+- name: Install git.
+  package: name={{item}} state=present update_cache=true
+  with_items:
+    - git
+    - htop
+
+- name: Install a list of packages
+  yum:
+    name:
+      - httpd
+    state: present
