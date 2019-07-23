@@ -1,0 +1,20 @@
+---
+
+- name: install vault
+  import_tasks: install.yml
+  tags:
+    - install
+
+#- name: configure vault
+#  import_tasks: configure.yml
+#  tags:
+#    - configure
+#    - terraform
+
+- name: install vault tls cert
+  import_tasks: vault-tls-cert-install-configure.yml
+  tags:
+    - configure
+    - terraform
+    - tlscert
+

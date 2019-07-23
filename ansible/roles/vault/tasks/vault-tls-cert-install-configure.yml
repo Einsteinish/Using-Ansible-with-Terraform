@@ -1,0 +1,46 @@
+---
+- name: install the latest version of pip
+  yum:
+    name: python-pip
+    state: latest
+    disable_gpg_check: yes
+
+- name: install the latest version of pip
+  pip:
+    name:
+      - boto
+      - boto3
+      - botocore
+
+- name: Download vault tls crt public key and ca file from s3
+  aws_s3:
+     bucket: "my-tls-cert"
+     object: "{{ consul_datacenter }}/vault.crt.pem"
+     dest: /opt/vault/tls/vault.crt.pem
+     mode: get
+     aws_access_key: "{{ lookup('env', 'CONSUL_AWS_ACCESS_KEY') }}"
+     aws_secret_key: "{{ lookup('env', 'CONSUL_AWS_SECRET_KEY') }}"
+
+
+- name: Download vault tls crt key file from s3
+  aws_s3:
+     bucket: "my-tls-cert"
+     object: "{{ consul_datacenter }}/vault.key.pem"
+     dest: /opt/vault/tls/vault.key.pem
+     mode: get
+     aws_access_key: "{{ lookup('env', 'CONSUL_AWS_ACCESS_KEY') }}"
+     aws_secret_key: "{{ lookup('env', 'CONSUL_AWS_SECRET_KEY') }}"
+
+- name: Change file ownership, group and permissions
+  file:
+    path: /opt/vault/tls/vault.key.pem
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group}}"
+    mode: '0600'
+
+- name: Change file ownership, group and permissions
+  file:
+    path: /opt/vault/tls/vault.crt.pem
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group}}"
+    mode: '0600'

@@ -1,0 +1,28 @@
+---
+# vault default variables
+# TODO: rename "file" variables to "path"
+
+ansible_home_dir: "/home/vault-deploy/ansible"
+consul_datacenter: "dc1"
+
+vault_version: "1.1.2"
+vault_os: "{{ ansible_system|lower }}"
+vault_architecture: "amd64"
+#vault_user: "vault"
+#vault_group: "vault"
+vault_user: "tellme"
+vault_group: "tellme"
+
+# paths
+vault_install_path: "/opt/vault"
+vault_bin_path: "{{ vault_install_path }}/bin"
+vault_config_path: "{{ vault_install_path }}/config"
+vault_main_config: "{{ vault_config_path }}/main.hcl"
+
+# tls
+vault_tls_path: "{{ vault_install_path }}/tls"
+vault_tls_key_path: "{{vault_tls_path}}/vault.key.pem"
+vault_tls_ca_path: "{{vault_tls_path}}/ca.crt.pem"
+vault_tls_crt_path: "{{vault_tls_path}}/vault.crt.pem"
+vault_tls_key: "tls_key_runtime_injected_here"
+vault_tls_crt: "tls_crt_runtime_injected_here"

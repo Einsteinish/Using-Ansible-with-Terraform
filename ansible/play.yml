@@ -1,0 +1,8 @@
+---
+- hosts: terra_ansible_host
+  gather_facts: no
+  become: true
+  roles:
+    - role: httpd
+    - role: vault
+

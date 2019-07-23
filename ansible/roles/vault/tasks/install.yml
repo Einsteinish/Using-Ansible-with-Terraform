@@ -1,0 +1,34 @@
+---
+# vault installation tasks
+
+ - name: create vault group
+   group:
+     name: "{{ vault_group }}"
+     state: present
+     system: yes
+ 
+ - name: create vault user
+   user:
+     name: "{{ vault_user }}"
+     comment: "vault user"
+     group: "{{ vault_group }}"
+     system: yes
+ 
+ - name: create vault directories
+   file:
+     dest: "{{ item }}"
+     state: directory
+     owner: "{{ vault_user }}"
+     group: "{{ vault_group}}"
+   with_items:
+     - "{{ vault_install_path }}"
+ 
+ - name: create vault tls directory
+   file:
+     dest: "{{ item }}"
+     state: directory
+     owner: "{{ vault_user }}"
+     group: "{{ vault_group}}"
+     mode: 0700
+   with_items:
+     - "{{ vault_tls_path }}"

@@ -1,0 +1,1 @@
+consul_datacenter: ${consul_datacenter}
