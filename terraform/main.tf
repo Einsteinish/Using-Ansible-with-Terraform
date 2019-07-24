@@ -25,11 +25,6 @@ output "consul_datacenter" {
   value = "$${consul_datacenter}"
 }
 
-output "datacenter" {
-  value = "${lower(var.datacenter)}"
-}
-
-
 resource "null_resource" "ConfigureAnsibleLabelVariable" {
   provisioner "local-exec" {
     command = "echo [${var.dev_host_label}:vars] > hosts"
